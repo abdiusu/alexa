@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+</head>
+<body>
+<div id="alexaChecker"></div>
+<script>
+  var CreateCSS = document.createElement('style');
+CreateCSS.innerHTML = `
+.none{
+ display:none;
+}
+#alexaChecker {
+    background-color: #d6ffd49c;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin: auto;
+}
+#inputDomain {
+    width: 100%;
+    height: 30px;
+    outline: none;
+    padding-left: 5px;
+}
+#chekAlexa {
+    cursor: pointer;
+    font-size: 17px;
+    margin: 10px 0;
+    font-weight: bold;
+    background-color: #6a44ea;
+    color: white;
+}
+`;
+document.body.append(CreateCSS);
+var dataHasil = 0;
+if (document.getElementById('alexaChecker')) {
+    document.getElementById('alexaChecker').innerHTML = `
+ <div><input id='inputDomain' placeholder='Masukkan Domain Web Kamu..' /></div>
+ <div><button id='chekAlexa'>Chek Peringkat!</button></div>
+ <div>Peringkat Alexa Web : <span id='outputAlexa'>-</span></div>
+`;
+    document.getElementById('chekAlexa').addEventListener('click', function () {
+        var dataUrl = document.getElementById('inputDomain').value;
+        if (dataUrl.indexOf("http://") >= 0 || dataUrl.indexOf("https://") >= 0) {
+            dataUrl = dataUrl;
+        } else {
+            dataUrl = "http://" + dataUrl
+        }
+        document.getElementById('outputAlexa').innerText = 'Mengambil Data...';
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://apialexa.maskoding.com/", true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var db = JSON.parse(xhr.responseText);
+                    document.getElementById('outputAlexa').innerText = db.data;
+                };
+            };
+        };
+        xhr.onerror = function () {
+            console.log("error")
+        };
+        xhr.send(JSON.stringify({
+            "data": dataUrl,
+        }));
+    });
+};
+</script>
+</body>
+</html>

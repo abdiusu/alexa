@@ -1,0 +1,18 @@
+{
+  "name": "alexa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "encodeurl": "^1.0.2",
+    "is-valid-http-url": "^1.0.3",
+    "random-useragent": "^0.5.0",
+    "unirest": "^0.6.0"
+  }
+}
